@@ -1,0 +1,96 @@
+{% extends "YdleIhmBundle::layout.html.twig" %}
+
+{% block title "Ydle - Nodes" %}
+
+{% block content %}
+
+   <div class="row">
+          <div class="col-lg-8 with-border" style="width: 760px; margin-right: 20px;">
+            <h2>Listes des capteurs</h2> 
+            <table id="sensors">
+            <thead>
+            <tr>
+              <th>Code</th>
+              <th>Nom</th>
+              <th>Type</th>
+              <th>Pièce</th>
+              <th>Active ?</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if nodes %}
+            {% for node in nodes %}
+            <tr>        
+               <td>{{ node.code }}</td>
+               <td>{{ node.name }}</td>
+               <td>
+               {% for type in node.types %}
+                 <span class="type">{{ type.name }}</span>
+               {% endfor %}
+               </td>
+               <td>{{ node.room.name }}</td>
+               <td>{% if node.isactive %}Yes{% else %}No{% endif %}</td>
+               <td> 
+                    <a href="{{ path('nodes', {'node': node.id} ) }}"><img src="{{ asset('bundles/ydleihm/images/plugin_edit.png') }}" alt="edit" /></a>
+                    {% if node.isactive %}
+                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 0} ) }}"><img src="{{ asset('bundles/ydleihm/images/plugin_error.png') }}" alt="Deactivate" /></a>
+                    {% else %}
+                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 1} ) }}"><img src="{{ asset('bundles/ydleihm/images/plugin.png') }}" alt="Activate" /></a>
+                    {% endif %}
+                    <a href="{{ path('nodeDelete', {'node': node.id} ) }}" onclick="return confirm('Êtes vous sur de vouloir supprimer ce node ?');">S</a>     
+                    <a href="{{ path('nodeReset', {'node': node.id} ) }}" onclick="return confirm('Êtes vous sur de vouloir initialiser ce node ?');">I</a>     
+               </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="7">Aucun capteur enregistré actuellement</td>
+            </tr>
+            {% endif %}
+            </tbody>
+            </table>
+          </div>   
+          <div class="col-lg-4 with-border" style="height: 344px;">
+            <h2>Ajoute un capteur</h2>
+            {{ form_start(form, { 'attr': {'class': 'ydle-form'} }) }}
+            {{ form_errors(form) }}
+
+            <div class="form-item">
+                {{ form_label(form.name) }}
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="form-item">
+                {{ form_label(form.code) }}
+                {{ form_errors(form.code) }}
+                {{ form_widget(form.code) }}
+            </div>
+            <div class="form-item">
+                {{ form_label(form.room) }}
+                {{ form_errors(form.room) }}
+                {{ form_widget(form.room) }}
+            </div>
+            <div class="form-item">
+                {{ form_label(form.types) }}
+                {{ form_errors(form.types) }}
+                {{ form_widget(form.types) }}
+            </div>
+            <div class="form-item">
+                {{ form_label(form.description) }}
+                {{ form_errors(form.description) }}
+                {{ form_widget(form.description) }}
+            </div>
+            <div class="form-item">
+                {{ form_label(form.is_active) }}
+                {{ form_errors(form.is_active) }}
+                {{ form_widget(form.is_active) }}
+            </div>
+            <div class="form-item form-actions">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+            {{ form_end(form) }}
+            </form>      
+          </div>
+        </div>
+{% endblock %}

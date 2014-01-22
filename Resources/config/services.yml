@@ -1,0 +1,21 @@
+parameters:
+  ydle.sensortype.manager.class: Ydle\NodesBundle\Manager\SensorTypeManager
+  ydle.node.manager.class: Ydle\NodesBundle\Manager\NodeManager
+
+services:
+  ydle.sensortypes.manager:
+    class: %ydle.sensortype.manager.class%
+    arguments: 
+      entityManager: "@doctrine.orm.entity_manager"
+  ydle.nodes.manager:
+    class: %ydle.node.manager.class%
+    arguments: 
+      entityManager: "@doctrine.orm.entity_manager"
+  ydle.sensortypes.form:
+    class: Ydle\NodesBundle\Form\Type\SensorTypesType
+    tags:
+        - { name: form.type, alias: sensor_types }
+  ydle.nodes.form:
+    class: Ydle\NodesBundle\Form\Type\NodeType
+    tags:
+        - { name: form.type, alias: node_form }
