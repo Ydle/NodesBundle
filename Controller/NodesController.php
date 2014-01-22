@@ -11,16 +11,31 @@ class NodesController extends Controller
     public function indexAction(Request $request)
     {
         $nodes = $this->get("ydle.nodes.manager")->findAllByName();
-        $node = new Node();
         
+        return $this->render('YdleNodesBundle:Nodes:index.html.twig', array(
+            'mainpage' => 'nodes',
+            'nodes' => $nodes
+            )
+        );
+    }
+    
+    /**
+     * Display a form to create or edit a node.
+     * 
+     * @param Request $request
+     */
+    public function formAction(Request $request)
+    {
+        $node = new Node();
         // Manage edition mode
         $this->currentNode = $request->get('node');
         if($this->currentNode){
             $node = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
-        }
+        }      
+
         $form = $this->createForm("node_form", $node);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($node);
@@ -30,15 +45,13 @@ class NodesController extends Controller
                 $message = 'Node modify successfully';
             }
             $this->get('session')->getFlashBag()->add('notice', $message);
+            $this->get('ydle.logger')->log('info', $message, 'hub');
             return $this->redirect($this->generateUrl('nodes'));
         }
         
-        return $this->render('YdleNodesBundle:Nodes:index.html.twig', array(
-            'mainpage' => 'nodes',
-            'form' => $form->createView(),
-            'nodes' => $nodes
-            )
-        );
+        return $this->render('YdleNodesBundle:Nodes:form.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
     
     
@@ -54,6 +67,7 @@ class NodesController extends Controller
         $em = $this->getDoctrine()->getManager();                                                                         
         $em->remove($object);
         $em->flush();
+        $this->get('ydle.logger')->log('info', 'node removed', 'hub');
         $this->get('session')->getFlashBag()->add('notice', 'Node removed');
         return $this->redirect($this->generateUrl('nodes'));
     }

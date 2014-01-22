@@ -4,8 +4,14 @@
 #    Nodes     #
 ################    
 nodes:
-    pattern:  /nodes/{node}
-    defaults: { _controller: YdleNodesBundle:Nodes:index, node:0 }
+    pattern:  /nodes
+    defaults: { _controller: YdleNodesBundle:Nodes:index }    
+nodeAdd:
+    pattern:  /nodes/add
+    defaults: { _controller: YdleNodesBundle:Nodes:form }
+nodeEdit:
+    pattern:  /nodes/edit/{node}
+    defaults: { _controller: YdleNodesBundle:Nodes:form, room:0 }
 nodeDelete:
     pattern:  /nodes/delete/{node}
     defaults: { _controller: YdleNodesBundle:Nodes:delete, node:0 } 

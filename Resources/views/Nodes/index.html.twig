@@ -32,14 +32,14 @@
                <td>{{ node.room.name }}</td>
                <td>{% if node.isactive %}Yes{% else %}No{% endif %}</td>
                <td> 
-                    <a href="{{ path('nodes', {'node': node.id} ) }}"><img src="{{ asset('bundles/ydleihm/images/plugin_edit.png') }}" alt="edit" /></a>
+                    <a href="{{ path('nodeEdit', {'node': node.id} ) }}" class="glyphicon glyphicon-pencil"></a>
                     {% if node.isactive %}
-                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 0} ) }}"><img src="{{ asset('bundles/ydleihm/images/plugin_error.png') }}" alt="Deactivate" /></a>
+                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 0} ) }}" class="glyphicon glyphicon-pause"></a>
                     {% else %}
-                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 1} ) }}"><img src="{{ asset('bundles/ydleihm/images/plugin.png') }}" alt="Activate" /></a>
+                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 1} ) }}" class="glyphicon glyphicon-play"></a>
                     {% endif %}
-                    <a href="{{ path('nodeDelete', {'node': node.id} ) }}" onclick="return confirm('Êtes vous sur de vouloir supprimer ce node ?');">S</a>     
-                    <a href="{{ path('nodeReset', {'node': node.id} ) }}" onclick="return confirm('Êtes vous sur de vouloir initialiser ce node ?');">I</a>     
+                    <a href="{{ path('nodeDelete', {'node': node.id} ) }}" class="glyphicon glyphicon-remove" onclick="return confirm('Êtes vous sur de vouloir supprimer ce node ?');"></a>     
+                    <a href="{{ path('nodeReset', {'node': node.id} ) }}" onclick="return confirm('Êtes vous sur de vouloir initialiser ce node ?');" class="glyphicon glyphicon-flash"></a>     
                </td>
             </tr>
             {% endfor %}
@@ -51,46 +51,10 @@
             </tbody>
             </table>
           </div>   
-          <div class="col-lg-4 with-border" style="height: 344px;">
-            <h2>Ajoute un capteur</h2>
-            {{ form_start(form, { 'attr': {'class': 'ydle-form'} }) }}
-            {{ form_errors(form) }}
-
-            <div class="form-item">
-                {{ form_label(form.name) }}
-                {{ form_errors(form.name) }}
-                {{ form_widget(form.name) }}
-            </div>
-            <div class="form-item">
-                {{ form_label(form.code) }}
-                {{ form_errors(form.code) }}
-                {{ form_widget(form.code) }}
-            </div>
-            <div class="form-item">
-                {{ form_label(form.room) }}
-                {{ form_errors(form.room) }}
-                {{ form_widget(form.room) }}
-            </div>
-            <div class="form-item">
-                {{ form_label(form.types) }}
-                {{ form_errors(form.types) }}
-                {{ form_widget(form.types) }}
-            </div>
-            <div class="form-item">
-                {{ form_label(form.description) }}
-                {{ form_errors(form.description) }}
-                {{ form_widget(form.description) }}
-            </div>
-            <div class="form-item">
-                {{ form_label(form.is_active) }}
-                {{ form_errors(form.is_active) }}
-                {{ form_widget(form.is_active) }}
-            </div>
-            <div class="form-item form-actions">
-                <button type="submit" class="btn btn-default">Submit</button>
-            </div>
-            {{ form_end(form) }}
-            </form>      
+          <div class="col-lg-4 with-border" style="height: 282px;">
+              <div class="content">
+                <a href="{{ path('nodeAdd') }}" class="btn glyphicon glyphicon-plus-sign" >{{ "node.btn.add" | trans({}, "YdleRoomBundle") }}</a>
+              </div>
           </div>
         </div>
 {% endblock %}
