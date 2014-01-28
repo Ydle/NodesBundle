@@ -75,8 +75,8 @@ class Node
      *
      * @ORM\ManyToMany(targetEntity="SensorType", cascade={"persist"})  
      * @ORM\JoinTable(name="node_sensor",
-     *                joinColumns={@ORM\JoinColumn(name="node_id", referencedColumnName="id")},
-     *                inverseJoinColumns={@ORM\JoinColumn(name="sensortype_id", referencedColumnName="id")}
+     *                joinColumns={@ORM\JoinColumn(name="node_id", referencedColumnName="id", onDelete="CASCADE")},
+     *                inverseJoinColumns={@ORM\JoinColumn(name="sensortype_id", referencedColumnName="id", onDelete="CASCADE")}
      *)
      */
     private $types;
@@ -232,6 +232,21 @@ class Node
         unset($this->types);
 
         return $this;
+    }
+    
+    /**
+     * Check if a node got a specific type
+     * 
+     * @param Ydle\NodesBundle\Entity\SensorType $type
+     * @return boolean
+     */
+    public function hasType(SensorType $type)
+    {
+    	foreach($this->types as $t)
+    	{
+    		if($t->getId() == $type->getId()){ return true; }
+    	}
+    	return false;
     }
    
      /**
