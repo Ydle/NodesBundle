@@ -24,6 +24,9 @@ nodeInitialize:
 nodeReset:
     pattern:  /nodes/reset/{node}
     defaults: { _controller: YdleNodesBundle:Nodes:reset, node:0 } 
+nodeSensors:
+    pattern:  /nodes/sensors/{node}
+    defaults: { _controller: YdleNodesBundle:Nodes:sensors, node:0 } 
     
 ##################
 #  Type Sensors  #

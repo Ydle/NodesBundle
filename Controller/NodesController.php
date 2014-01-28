@@ -5,6 +5,7 @@ namespace Ydle\NodesBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Ydle\NodesBundle\Entity\Node;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NodesController extends Controller
 {
@@ -135,5 +136,20 @@ class NodesController extends Controller
         $em->flush();
         $this->get('session')->getFlashBag()->add('notice', $message);
         return $this->redirect($this->generateUrl('nodes'));
+    }
+    
+    public function sensorsAction(Request $request)
+    {
+        $msg = 'ok';
+        $sensors = array();
+        if(!$node = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'))){
+            $msg = 'ko';
+        } else {
+            foreach($node->getTypes() as $type)
+            {
+                $sensors[] = $type->getId();
+            }
+        }
+        return new JsonResponse(array('msgReturn' => $msg, 'data' => $sensors, 'nodeId' => $node->getId(), 'roomId' => $node->getRoom()->getId()));
     }
 }
