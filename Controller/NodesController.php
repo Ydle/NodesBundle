@@ -114,9 +114,9 @@ class NodesController extends Controller
         $this->get('session')->getFlashBag()->add('notice', $message);
         
         if($isActive){
-           $this->get('ydle.logger')->log('info', 'Node #'.$object->getCode().' activated');
+           $this->get('ydle.logger')->log('info', 'Node #'.$object->getCode().' activated', 'hub');
         } else {
-           $this->get('ydle.logger')->log('info', 'Node #'.$object->getCode().' deactivated');
+           $this->get('ydle.logger')->log('info', 'Node #'.$object->getCode().' deactivated', 'hub');
         }
         return $this->redirect($this->generateUrl('nodes'));
     }
