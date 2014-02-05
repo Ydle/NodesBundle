@@ -219,4 +219,18 @@ class SensorType
     {
         return $this->updated_at;
     }
+
+    /**
+    * Custom toArray classe
+    * 
+    * @return array
+    */
+    public function toArray(){
+        return array(
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'is_active' => $this->getIsActive(),
+            'unit' => $this->getUnit()
+        );
+    }
 }
