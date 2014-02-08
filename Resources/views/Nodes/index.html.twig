@@ -6,16 +6,16 @@
 
    <div class="row">
           <div class="col-lg-8 with-border" style="width: 760px; margin-right: 20px;">
-            <h2>Listes des capteurs</h2> 
+            <h2>{{ "node.list.title" | trans({}, "YdleNodesBundle") }}</h2> 
             <table id="sensors">
             <thead>
             <tr>
-              <th>Code</th>
-              <th>Nom</th>
-              <th>Type</th>
-              <th>Pièce</th>
-              <th>Active ?</th>
-              <th>Action</th>
+              <th>{{ "node.list.code" | trans({}, "YdleNodesBundle") }}</th>
+              <th>{{ "node.list.name" | trans({}, "YdleNodesBundle") }}</th>
+              <th>{{ "node.list.type" | trans({}, "YdleNodesBundle") }}</th>
+              <th>{{ "node.list.room" | trans({}, "YdleNodesBundle") }}</th>
+              <th>{{ "node.list.active" | trans({}, "YdleNodesBundle") }}</th>
+              <th>{{ "title.action" | trans({}, "YdleIhmBundle") }}</th>
             </tr>
             </thead>
             <tbody>
@@ -30,7 +30,7 @@
                {% endfor %}
                </td>
                <td>{{ node.room.name }}</td>
-               <td>{% if node.isactive %}Yes{% else %}No{% endif %}</td>
+               <td>{% if node.isactive %}Yes{% else %}{{ "label.no" | trans({}, "YdleIhmBundle") }}{% endif %}</td>
                <td> 
                     <a href="{{ path('nodeEdit', {'node': node.id} ) }}" class="glyphicon glyphicon-pencil"></a>
                     {% if node.isactive %}
@@ -38,14 +38,14 @@
                     {% else %}
                     <a href="{{ path('nodeActivation', {'node': node.id, 'active': 1} ) }}" class="glyphicon glyphicon-play"></a>
                     {% endif %}
-                    <a href="{{ path('nodeDelete', {'node': node.id} ) }}" class="glyphicon glyphicon-trash" onclick="return confirm('Êtes vous sur de vouloir supprimer ce node ?');"></a>     
-                    <a href="{{ path('nodeReset', {'node': node.id} ) }}" onclick="return confirm('Êtes vous sur de vouloir initialiser ce node ?');" class="glyphicon glyphicon-flash"></a>     
+                    <a href="{{ path('nodeDelete', {'node': node.id} ) }}" class="glyphicon glyphicon-trash" onclick="return confirm('{{ "node.delete.confirm" | trans({}, "YdleNodesBundle") }}');"></a>     
+                    <a href="{{ path('nodeReset', {'node': node.id} ) }}" onclick="return confirm('{{ "node.init.confirm" | trans({}, "YdleNodesBundle") }}');" class="glyphicon glyphicon-flash"></a>     
                </td>
             </tr>
             {% endfor %}
             {% else %}
             <tr>
-                <td colspan="7">Aucun capteur enregistré actuellement</td>
+                <td colspan="7">{{ "node.list.empty" | trans({}, "YdleNodesBundle") }}</td>
             </tr>
             {% endif %}
             </tbody>
@@ -53,7 +53,7 @@
           </div>   
           <div class="col-lg-4 with-border" style="height: 282px;">
               <div class="content">
-                <a href="{{ path('nodeAdd') }}" class="btn btn-default glyphicon glyphicon-plus-sign" >{{ "node.btn.add" | trans({}, "YdleRoomBundle") }}</a>
+                <a href="{{ path('nodeAdd') }}" class="btn btn-default glyphicon glyphicon-plus-sign" >{{ "node.btn.add" | trans({}, "YdleNodesBundle") }}</a>
               </div>
           </div>
         </div>
