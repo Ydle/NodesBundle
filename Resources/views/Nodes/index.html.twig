@@ -1,6 +1,6 @@
 {% extends "YdleIhmBundle::layout.html.twig" %}
 
-{% block title "Ydle - Nodes" %}
+{% block title '{{ "page.nodes.title" | trans({}, "YdleNodesBundle") }}' %}
 
 {% block content %}
 
@@ -11,10 +11,10 @@
             <thead>
             <tr>
               <th>{{ "node.list.code" | trans({}, "YdleNodesBundle") }}</th>
-              <th>{{ "node.list.name" | trans({}, "YdleNodesBundle") }}</th>
-              <th>{{ "node.list.type" | trans({}, "YdleNodesBundle") }}</th>
+              <th>{{ "title.name" | trans({}, "YdleIhmBundle") }}</th>
+              <th>{{ "title.type" | trans({}, "YdleIhmBundle") }}</th>
               <th>{{ "node.list.room" | trans({}, "YdleNodesBundle") }}</th>
-              <th>{{ "node.list.active" | trans({}, "YdleNodesBundle") }}</th>
+              <th>{{ "title.active" | trans({}, "YdleIhmBundle") }}</th>
               <th>{{ "title.action" | trans({}, "YdleIhmBundle") }}</th>
             </tr>
             </thead>
