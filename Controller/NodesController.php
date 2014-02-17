@@ -113,6 +113,31 @@ class NodesController extends Controller
         return $this->redirect($this->generateUrl('nodes'));
     }
     
+    
+    /**
+     * Create a link with a node, sending an http request to the master 
+     * and a 433 mhz request then
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type
+     */
+    public function linkAction(Request $request)
+    {
+        $object = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
+        
+        $address = $this->container->getParameter('master_address');
+        $address .= ':8888/node/link?target='.$object->getCode().'&sender=';
+        $address .= $this->container->getParameter('master_id');
+        
+        $ch = curl_init($address);
+        curl_exec($ch);
+        curl_close($ch);
+        
+        $this->get('ydle.logger')->log('info', 'Initialization signal sent to node #'.$object->getCode());
+        $this->get('session')->getFlashBag()->add('notice', 'Link action envoyée');
+        return $this->redirect($this->generateUrl('nodes'));
+    }
+    
     /**
     * Manage activation of a node
     * 

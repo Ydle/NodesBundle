@@ -36,7 +36,10 @@ nodeInitialize:
     defaults: { _controller: YdleNodesBundle:Nodes:initialize, node:0, active:0 }  
 nodeReset:
     pattern:  /nodes/reset/{node}
-    defaults: { _controller: YdleNodesBundle:Nodes:reset, node:0 } 
+    defaults: { _controller: YdleNodesBundle:Nodes:reset, node:0 }   
+nodeLink:
+    pattern:  /nodes/link/{node}
+    defaults: { _controller: YdleNodesBundle:Nodes:link, node:0 } 
 nodeSensors:
     pattern:  /nodes/sensors/{node}
     defaults: { _controller: YdleNodesBundle:Nodes:sensors, node:0 } 

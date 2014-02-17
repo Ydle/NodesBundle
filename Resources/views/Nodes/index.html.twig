@@ -55,7 +55,7 @@
                     <a href="{{ path('nodeActivation', {'node': node.id, 'active': 1} ) }}" class="glyphicon glyphicon-play"></a>
                     {% endif %}
                     <a href="{{ path('nodeDelete', {'node': node.id} ) }}" class="glyphicon glyphicon-trash" onclick="return confirm('{{ "node.delete.confirm" | trans({}, "YdleNodesBundle") }}');"></a>     
-                    <a href="{{ path('nodeReset', {'node': node.id} ) }}" onclick="return confirm('{{ "node.init.confirm" | trans({}, "YdleNodesBundle") }}');" class="glyphicon glyphicon-flash"></a>     
+                    <a href="{{ path('nodeLink', {'node': node.id} ) }}" onclick="return confirm('{{ "node.init.confirm" | trans({}, "YdleNodesBundle") }}');" class="glyphicon glyphicon-flash"></a>     
                </td>
             </tr>
             {% endfor %}
