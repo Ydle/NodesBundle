@@ -22,12 +22,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ydle\RoomBundle\Entity\Room;
 use Ydle\NodesBundle\Entity\SensorType;
+<<<<<<< HEAD
 use Ydle\NodesBundle\Validator\Constraints as YdleNodesAssert;
+=======
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+>>>>>>> 9260977ba9dc6209d8ec1d7c4b7d4b93343b9e07
 
 /**
  * Node
  *
  * @ORM\Table(name="node")
+ * @UniqueEntity("code")
  * @ORM\Entity(repositoryClass="Ydle\NodesBundle\Repository\NodeRepository")
  * @ORM\NamedQueries({
  *     @ORM\NamedQuery(name="Node.countSensorsByRoom", query="SELECT count(s) FROM __CLASS__ n JOIN n.types s WHERE n.room = ?1 ")
