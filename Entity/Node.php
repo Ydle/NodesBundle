@@ -22,6 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ydle\RoomBundle\Entity\Room;
 use Ydle\NodesBundle\Entity\SensorType;
+use Ydle\NodesBundle\Validator\Constraints as YdleNodesAssert;
 
 /**
  * Node
@@ -60,6 +61,7 @@ class Node
      *      minMessage = "Minimum is 0",
      *      maxMessage = "Maximum code is 255"
      * )
+     * @YdleNodesAssert\IsMaster
      */
     private $code;
 
