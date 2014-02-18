@@ -24,6 +24,7 @@ use Ydle\RoomBundle\Entity\Room;
 use Ydle\NodesBundle\Entity\SensorType;
 use Ydle\NodesBundle\Validator\Constraints as YdleNodesAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Node
@@ -34,6 +35,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\NamedQueries({
  *     @ORM\NamedQuery(name="Node.countSensorsByRoom", query="SELECT count(s) FROM __CLASS__ n JOIN n.types s WHERE n.room = ?1 ")
  * })
+ * @Assert\Callback(methods={"hasTypes"})
  */
 class Node
 {
@@ -311,4 +313,12 @@ class Node
     {
         return $this->updated;
     }
+    
+    public function hasTypes(ExecutionContextInterface $context)
+    {
+        if ($this->getTypes()->count() == 0) {
+            $context->addViolationAt('type', 'node.types.required');
+        }
+    }
+
 }
