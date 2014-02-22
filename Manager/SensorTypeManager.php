@@ -18,7 +18,7 @@
 namespace Ydle\NodesBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Ydle\IhmBundle\Manager\BaseManager;
+use Ydle\HubBundle\Manager\BaseManager;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 class SensorTypeManager extends BaseManager

@@ -49,10 +49,10 @@ nodeSensors:
 ##################
 configTypeSensor:
     pattern:  /conf/typesensor/{type}
-    defaults: { _controller: YdleIhmBundle:Config:typesensor, type:0 }
+    defaults: { _controller: YdleHubBundle:Config:typesensor, type:0 }
 configTypeSensorActivation:
     pattern:  /conf/typesensor/activation/{type}/{active}
-    defaults: { _controller: YdleIhmBundle:Config:typesensoractivation, type:0, active:0 } 
+    defaults: { _controller: YdleHubBundle:Config:typesensoractivation, type:0, active:0 } 
 configTypeSensorDelete:
     pattern:  /conf/typesensor/delete/{type}
-    defaults: { _controller: YdleIhmBundle:Config:typesensordelete, type:0 } 
+    defaults: { _controller: YdleHubBundle:Config:typesensordelete, type:0 } 
