@@ -54,7 +54,7 @@ class SensorType
     /**
      * @var string
      *
-     * @ORM\Column(name="unit", type="string", length=50)
+     * @ORM\Column(name="unit", type="string", length=50, nullable=true)
      */
     private $unit;
 
