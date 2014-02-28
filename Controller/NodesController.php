@@ -100,9 +100,18 @@ class NodesController extends Controller
     {
         $object = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
         
-        $address = $this->container->getParameter('master_address');
+        // Check if the required options are set in the parameters.yml file
+        $masterAddr = $this->container->getParameter('master_address');
+        $masterCode = $this->container->getParameter('master_id');        
+        if(empty($masterAddr) || empty($masterAddr)){
+            $this->get('session')->getFlashBag()->add('error', 'Node removed');
+            $this->redirect($this->generateUrl('nodes'));
+            die;
+        }
+        
+        $address = $masterAddr;
         $address .= ':8888/node/reset?target='.$object->getCode().'&sender=';
-        $address .= $this->container->getParameter('master_id');
+        $address .= $masterCode;
         
         $ch = curl_init($address);
         curl_exec($ch);
