@@ -242,6 +242,7 @@ class SensorType
     */
     public function toArray(){
         return array(
+            'id' => $this->getId(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
             'is_active' => $this->getIsActive(),
