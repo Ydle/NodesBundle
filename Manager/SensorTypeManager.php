@@ -17,28 +17,41 @@
  */
 namespace Ydle\NodesBundle\Manager;
 
+use Ydle\NodesBundle\Model\SensorTypeManagerInterface;
+use Ydle\CoreBundle\Model\BaseEntityManager;
+
 use Doctrine\ORM\EntityManager;
 use Ydle\HubBundle\Manager\BaseManager;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
+use Sonata\DatagridBundle\Pager\Doctrine\Pager;
+use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
+
 class SensorTypeManager extends BaseManager
 {
 
-    protected $em;
-
-    public function __construct(EntityManager $em)
+    /**
+    * {@inheritdoc}
+    */
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
-        $this->em = $em;
-    }
+        $parameters = array();
 
-    public function findAllByName()
-    {
-        return $this->getRepository()->findAllOrderedByName();
-    }
+        $query = $this->getRepository()
+            ->createQueryBuilder('st')
+            ->select('st');
 
-    public function getRepository()
-    {
-        return $this->em->getRepository('YdleNodesBundle:SensorType');
+        $query->setParameters($parameters);
+
+        $pager = new Pager();
+        $pager->setQuery(new ProxyQuery($query));
+        $pager->setMaxPerPage($limit);
+        $pager->setPage($page);
+        $pager->init();
+
+//        echo '<pre>';
+//        \Doctrine\Common\Util\Debug::dump($pager);die();
+        return $pager;
     }
 
 }
