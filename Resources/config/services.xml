@@ -4,13 +4,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ydle.sensortype.manager.class">Ydle\NodesBundle\Manager\SensorTypeManager</parameter>
-        <parameter key="ydle.sensortype.entity.class">Ydle\NodesBundle\Entity\SensorType</parameter>
+        <parameter key="ydle.nodetype.manager.class">Ydle\NodesBundle\Manager\NodeTypeManager</parameter>
+        <parameter key="ydle.nodetype.entity.class">Ydle\NodesBundle\Entity\SensorType</parameter>
     </parameters>
     
     <services>
-        <service id="ydle.sensortype.manager" class="%ydle.sensortype.manager.class%">
-            <argument>%ydle.sensortype.entity.class%</argument>
+        <service id="ydle.nodetype.manager" class="%ydle.nodetype.manager.class%">
+            <argument>%ydle.nodetype.entity.class%</argument>
             <argument type="service" id="doctrine" />
         </service>
     </services>
