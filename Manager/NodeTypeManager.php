@@ -17,17 +17,16 @@
  */
 namespace Ydle\NodesBundle\Manager;
 
-use Ydle\NodesBundle\Model\SensorTypeManagerInterface;
+use Ydle\NodesBundle\Model\NodeTypeManagerInterface;
 use Ydle\CoreBundle\Model\BaseEntityManager;
 
 use Doctrine\ORM\EntityManager;
-use Ydle\HubBundle\Manager\BaseManager;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
-class NodeTypeManager extends BaseManager
+class NodeTypeManager extends BaseEntityManager implements NodeTypeManagerInterface
 {
 
     /**
@@ -54,4 +53,27 @@ class NodeTypeManager extends BaseManager
         return $pager;
     }
 
+
+    
+    /**
+     * Change the state of a room type
+     * 
+     * @param integer $id
+     * @param boolean $newState
+     * @return boolean
+     */
+    public function changeState($id, $newState = 0)
+    {
+        if(!$object = $this->find($id)){
+            return false;
+        }
+        $object->setIsActive($newState);
+        $this->save($object);
+        return true;
+    }
+
+    public function findAllByName()
+    {
+        return $this->getRepository()->findAllOrderedByName();
+    }
 }

@@ -21,12 +21,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * SensorType
+ * NodeType
  *
  * @ORM\Table(name="sensortype")
- * @ORM\Entity(repositoryClass="Ydle\NodesBundle\Repository\SensorTypeRepository")
+ * @ORM\Entity(repositoryClass="Ydle\NodesBundle\Repository\NodeTypeRepository")
  */
-class SensorType
+class NodeType
 {
     /**
      * @var integer

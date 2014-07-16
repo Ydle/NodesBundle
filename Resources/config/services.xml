@@ -5,7 +5,7 @@
 
     <parameters>
         <parameter key="ydle.nodetype.manager.class">Ydle\NodesBundle\Manager\NodeTypeManager</parameter>
-        <parameter key="ydle.nodetype.entity.class">Ydle\NodesBundle\Entity\SensorType</parameter>
+        <parameter key="ydle.nodetype.entity.class">Ydle\NodesBundle\Entity\NodeType</parameter>
     </parameters>
     
     <services>

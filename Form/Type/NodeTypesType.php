@@ -21,7 +21,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SensorTypesType extends AbstractType
+class NodeTypesType extends AbstractType
 {    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,13 +35,13 @@ class SensorTypesType extends AbstractType
 
     public function getName()
     {
-        return 'sensor_types';
+        return 'nodetypes_form';
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ydle\NodesBundle\Entity\SensorType',
+            'data_class' => 'Ydle\NodesBundle\Entity\NodeType',
         ));
     }
 }

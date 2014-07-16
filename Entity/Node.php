@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ydle\RoomBundle\Entity\Room;
-use Ydle\NodesBundle\Entity\SensorType;
+use Ydle\NodesBundle\Entity\NodeType;
 use Ydle\NodesBundle\Validator\Constraints as YdleNodesAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\ExecutionContextInterface;
@@ -94,7 +94,7 @@ class Node
     /**
      * @var integer
      *
-     * @ORM\ManyToMany(targetEntity="SensorType", cascade={"persist"})  
+     * @ORM\ManyToMany(targetEntity="NodeType", cascade={"persist"})  
      * @ORM\JoinTable(name="node_sensor",
      *                joinColumns={@ORM\JoinColumn(name="node_id", referencedColumnName="id", onDelete="CASCADE")},
      *                inverseJoinColumns={@ORM\JoinColumn(name="sensortype_id", referencedColumnName="id", onDelete="CASCADE")}
@@ -226,9 +226,9 @@ class Node
     /**
      * Add Type
      * 
-     * @param \Ydle\NodesBundle\Entity\SensorType $type
+     * @param \Ydle\NodesBundle\Entity\NodeType $type
      */
-    public function addType(SensorType $type)
+    public function addType(NodeType $type)
     {
         $this->types[] = $type;
     }
@@ -258,10 +258,10 @@ class Node
     /**
      * Check if a node got a specific type
      * 
-     * @param Ydle\NodesBundle\Entity\SensorType $type
+     * @param Ydle\NodesBundle\Entity\NodeType $type
      * @return boolean
      */
-    public function hasType(SensorType $type)
+    public function hasType(NodeType $type)
     {
     	foreach($this->types as $t)
     	{
