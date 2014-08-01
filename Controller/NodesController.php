@@ -21,16 +21,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Ydle\NodesBundle\Entity\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class NodesController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $nodes = $this->get("ydle.nodes.manager")->findAllByName();
         
         return $this->render('YdleNodesBundle:Nodes:index.html.twig', array(
-            'mainpage' => 'nodes',
-            'nodes' => $nodes
             )
         );
     }
@@ -40,34 +38,65 @@ class NodesController extends Controller
      * 
      * @param Request $request
      */
-    public function formAction(Request $request)
+    public function nodesFormAction(Request $request)
     {
         $node = new Node();
         // Manage edition mode
         $this->currentNode = $request->get('node');
         if($this->currentNode){
             $node = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
-        }      
+        }
+        $action = $this->get('router')->generate('submitNodeForm', array('node' => $this->currentNode));
 
         $form = $this->createForm("node_form", $node);
         $form->handleRequest($request);
         
-        if ($form->isValid()) {
+       
+	return $this->render('YdleNodesBundle:Nodes:form.html.twig', array(
+            'action' => $action,
+            'form' => $form->createView()
+        ));
+    }
+
+    public function submitNodeFormAction(Request $request)
+    {
+        $statusCode = 200;
+        $node = new Node();
+        // Manage edition mode
+        $this->currentNode = $request->get('node');
+        if($this->currentNode){
+            $node = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
+        }
+        $action = $this->get('router')->generate('submitNodeForm', array('node' => $this->currentNode));
+        
+	$form = $this->createForm("node_form", $node);
+        $form->handleRequest($request);
+        
+	if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($node);
             $em->flush();
-            $message = 'Node added successfully';
+            $message = $this->get('translator')->trans('node.add.success');
             if($node->getId()){
-                $message = 'Node modify successfully';
+                $message = $this->get('translator')->trans('node.edit.success');
             }
             $this->get('session')->getFlashBag()->add('notice', $message);
             $this->get('ydle.logger')->log('info', $message, 'hub');
-            return $this->redirect($this->generateUrl('nodes'));
+            $statusCode = 201;
+        } else {
+            $statusCode = 400;
         }
-        
-        return $this->render('YdleNodesBundle:Nodes:form.html.twig', array(
+
+	$html =  $this->renderView('YdleNodesBundle:Nodes:form.html.twig', array(
+            'action' => $action,
             'form' => $form->createView()
         ));
+        
+        $response = new Response();
+        $response->setContent($html);
+        $response->setStatusCode($statusCode);        
+        $response->headers->set('Content-Type', 'text/html');
+        return $response;
     }
     
     

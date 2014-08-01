@@ -18,32 +18,14 @@
 ################    
 nodes:
     pattern:  /nodes
-    defaults: { _controller: YdleNodesBundle:Nodes:index }    
-nodeAdd:
-    pattern:  /nodes/add
-    defaults: { _controller: YdleNodesBundle:Nodes:form }
-nodeEdit:
-    pattern:  /nodes/edit/{node}
-    defaults: { _controller: YdleNodesBundle:Nodes:form, room:0 }
-nodeDelete:
-    pattern:  /nodes/delete/{node}
-    defaults: { _controller: YdleNodesBundle:Nodes:delete, node:0 } 
-nodeActivation:
-    pattern:  /nodes/activation/{node}/{active}
-    defaults: { _controller: YdleNodesBundle:Nodes:activation, node:0, active:0 }  
-nodeInitialize:
-    pattern:  /nodes/initialize/{node}/{active}
-    defaults: { _controller: YdleNodesBundle:Nodes:initialize, node:0, active:0 }  
-nodeReset:
-    pattern:  /nodes/reset/{node}
-    defaults: { _controller: YdleNodesBundle:Nodes:reset, node:0 }   
-nodeLink:
-    pattern:  /nodes/link/{node}
-    defaults: { _controller: YdleNodesBundle:Nodes:link, node:0 } 
-nodeSensors:
-    pattern:  /nodes/sensors/{node}
-    defaults: { _controller: YdleNodesBundle:Nodes:sensors, node:0 } 
-    
+    defaults: { _controller: YdleNodesBundle:Nodes:index }
+nodesForm:
+  pattern: /nodes/form/{node}
+  defaults: { _controller: YdleNodesBundle:Nodes:nodesForm, node:0 }
+submitNodeForm:
+  pattern: /nodes/form/{node}/submit
+  defaults: { _controller: YdleNodesBundle:Nodes:submitNodeForm, node:0 } 
+ 
 ##################
 #  Type Sensors  #
 ##################

@@ -52,6 +52,7 @@ class Node
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -65,6 +66,7 @@ class Node
      *      minMessage = "Minimum is 0",
      *      maxMessage = "Maximum code is 255"
      * )
+     * @Assert\NotBlank()
      * @YdleNodesAssert\IsMaster
      */
     private $code;

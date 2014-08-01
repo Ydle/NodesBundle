@@ -5,11 +5,15 @@
 
     <parameters>
         <parameter key="ydle.node_types.form.class">Ydle\NodesBundle\Form\Type\NodeTypesType</parameter>
+        <parameter key="ydle.node.form.class">Ydle\NodesBundle\Form\Type\NodeType</parameter>
     </parameters>
 
     <services>
         <service id="ydle.node_types.form" class="%ydle.node_types.form.class%">
             <tag name="form.type" alias="nodetypes_form" />
+        </service>
+        <service id="ydle.node.form" class="%ydle.node.form.class%">
+            <tag name="form.type" alias="node_form" />
         </service>
     </services>
 </container>

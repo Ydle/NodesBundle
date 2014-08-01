@@ -16,61 +16,32 @@
 #}
 {% extends "YdleHubBundle::layout.html.twig" %}
 
-{% block title "page.nodes.title" | trans %}
+{% block title %}{{ "title.nodes" | trans}}{% endblock %}
 
 {% block content %}
-
-   <div class="row">
-          <div class="col-lg-8 with-border" style="width: 760px; margin-right: 20px;">
-            <h2>{{ "node.list.title" | trans}}</h2> 
-            <table id="sensors">
-            <thead>
-            <tr>
-              <th>{{ "node.list.code" | trans }}</th>
-              <th>{{ "title.name" | trans }}</th>
-              <th>{{ "title.type" | trans }}</th>
-              <th>{{ "node.list.room" | trans }}</th>
-              <th>{{ "title.active" | trans }}</th>
-              <th>{{ "title.action" | trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if nodes %}
-            {% for node in nodes %}
-            <tr>        
-               <td>{{ node.code }}</td>
-               <td>{{ node.name }}</td>
-               <td>
-               {% for type in node.types %}
-                 <span class="type">{{ type.name }}</span>
-               {% endfor %}
-               </td>
-               <td>{{ node.room.name }}</td>
-               <td>{% if node.isactive %}Yes{% else %}{{ "label.no" | trans }}{% endif %}</td>
-               <td> 
-                    <a href="{{ path('nodeEdit', {'node': node.id} ) }}" class="glyphicon glyphicon-pencil"></a>
-                    {% if node.isactive %}
-                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 0} ) }}" class="glyphicon glyphicon-pause"></a>
-                    {% else %}
-                    <a href="{{ path('nodeActivation', {'node': node.id, 'active': 1} ) }}" class="glyphicon glyphicon-play"></a>
-                    {% endif %}
-                    <a href="{{ path('nodeDelete', {'node': node.id} ) }}" class="glyphicon glyphicon-trash" onclick="return confirm('{{ "node.delete.confirm" | trans }}');"></a>     
-                    <a href="{{ path('nodeLink', {'node': node.id} ) }}" onclick="return confirm('{{ "node.init.confirm" | trans }}');" class="glyphicon glyphicon-flash"></a>     
-               </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="7">{{ "node.list.empty" | trans }}</td>
-            </tr>
-            {% endif %}
-            </tbody>
-            </table>
-          </div>   
-          <div class="col-lg-4 with-border" style="height: 282px;">
-              <div class="content">
-                <a href="{{ path('nodeAdd') }}" class="btn btn-default glyphicon glyphicon-plus-sign" >{{ "node.btn.add" | trans }}</a>
-              </div>
-          </div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Nodes</h3>
+                <div class="box-tools pull-right">
+                    <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body ajax-loading table-responsive" id="nodes-list" data-endpoint="/nodes/list.json" data-template="nodes-list">
+            </div>
         </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box" data-template="nodes-list">
+            <div class="box-header">
+                <h3 class="box-title">Add / Edit a new node</h3>
+            </div>
+
+            <div class="ajax-loading" data-endpoint="/nodes/form" data-template="nodes-form" id="nodes-form">
+            </div>
+        </div>
+    </div> 
+</div>      
 {% endblock %}
+

@@ -14,6 +14,6 @@ namespace Ydle\NodesBundle\Model;
 use Ydle\CoreBundle\Model\ManagerInterface;
 use Ydle\CoreBundle\Model\PageableManagerInterface;
 
-interface SensorTypeManagerInterface extends ManagerInterface, PageableManagerInterface
+interface NodeManagerInterface extends ManagerInterface, PageableManagerInterface
 {
 }

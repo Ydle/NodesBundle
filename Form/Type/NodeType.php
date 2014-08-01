@@ -40,7 +40,7 @@ class NodeType extends AbstractType
                     },
                 ))
                 ->add('types', 'entity', array(
-                    'class' => 'YdleNodesBundle:SensorType',
+                    'class' => 'YdleNodesBundle:NodeType',
                     'property' => 'name',
                     'multiple' => true,
                     'query_builder' => function(EntityRepository $er) {

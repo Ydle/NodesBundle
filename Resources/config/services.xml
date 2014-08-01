@@ -4,14 +4,25 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="ydle.node.manager.class">Ydle\NodesBundle\Manager\NodeManager</parameter>
+        <parameter key="ydle.node.entity.class">Ydle\NodesBundle\Entity\Node</parameter>
         <parameter key="ydle.nodetype.manager.class">Ydle\NodesBundle\Manager\NodeTypeManager</parameter>
         <parameter key="ydle.nodetype.entity.class">Ydle\NodesBundle\Entity\NodeType</parameter>
+        <parameter key="ydle.validator.unique.master.class">Ydle\NodesBundle\Validator\Constraints\IsMasterValidator</parameter>
     </parameters>
     
     <services>
         <service id="ydle.nodetype.manager" class="%ydle.nodetype.manager.class%">
             <argument>%ydle.nodetype.entity.class%</argument>
             <argument type="service" id="doctrine" />
+        </service>
+        <service id="ydle.node.manager" class="%ydle.node.manager.class%">
+            <argument>%ydle.node.entity.class%</argument>
+            <argument type="service" id="doctrine" />
+        </service>
+        <service id="validator.unique.ismaster" class="%ydle.validator.unique.master.class%">
+            <argument type="service" id="service_container" />
+            <tag name="validator.constraint_validator" alias="master_validator" />
         </service>
     </services>
 </container>

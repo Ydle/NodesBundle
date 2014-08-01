@@ -17,38 +17,39 @@
  */
 namespace Ydle\NodesBundle\Manager;
 
+use Ydle\NodesBundle\Model\NodeManagerInterface;
+use Ydle\CoreBundle\Model\BaseEntityManager;
+
 use Doctrine\ORM\EntityManager;
-use Ydle\HubBundle\Manager\BaseManager;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
-class NodeManager extends BaseManager
+use Sonata\DatagridBundle\Pager\Doctrine\Pager;
+use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
+
+class NodeManager extends BaseEntityManager implements NodeManagerInterface
 {
 
-    protected $em;
-
-    public function __construct(EntityManager $em)
+    /**
+    * {@inheritdoc}
+    */
+    public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
-        $this->em = $em;
-    }
+        $parameters = array();
 
-    public function findAllByName()
-    {
-        return $this->getRepository()->findAll();
-    }
+        $query = $this->getRepository()
+            ->createQueryBuilder('n')
+            ->select('n');
 
-    public function getRepository()
-    {
-        return $this->em->getRepository('YdleNodesBundle:Node');
-    }
+        $query->setParameters($parameters);
 
-    public function countSensorsByRoom($room)
-    {
-        return $this->getRepository()->createNamedQuery('Node.countSensorsByRoom')->setParameter(1, $room)->getSingleScalarResult();
-    }
+        $pager = new Pager();
+        $pager->setQuery(new ProxyQuery($query));
+        $pager->setMaxPerPage($limit);
+        $pager->setPage($page);
+        $pager->init();
 
-    public function findSensorsByRoom($room)
-    {
-        return $this->getRepository()->findBy(array('room' => $room));
+//        echo '<pre>';
+//        \Doctrine\Common\Util\Debug::dump($pager);die();
+        return $pager;
     }
-
 }
