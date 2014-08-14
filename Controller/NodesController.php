@@ -44,7 +44,7 @@ class NodesController extends Controller
         // Manage edition mode
         $this->currentNode = $request->get('node');
         if($this->currentNode){
-            $node = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
+            $node = $this->get("ydle.node.manager")->find($request->get('node'));
         }
         $action = $this->get('router')->generate('submitNodeForm', array('node' => $this->currentNode));
 
@@ -65,7 +65,7 @@ class NodesController extends Controller
         // Manage edition mode
         $this->currentNode = $request->get('node');
         if($this->currentNode){
-            $node = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
+            $node = $this->get("ydle.node.manager")->find($request->get('node'));
         }
         $action = $this->get('router')->generate('submitNodeForm', array('node' => $this->currentNode));
         
@@ -101,24 +101,6 @@ class NodesController extends Controller
     
     
     /**
-     * Delete a node
-     * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return type
-     */
-    public function deleteAction(Request $request)
-    {
-        $object = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
-        $em = $this->getDoctrine()->getManager();                                                                         
-        $em->remove($object);
-        $em->flush();
-        $this->get('ydle.logger')->log('info', 'node removed', 'hub');
-        $this->get('session')->getFlashBag()->add('notice', 'Node removed');
-        return $this->redirect($this->generateUrl('nodes'));
-    }
-    
-    
-    /**
      * Reset a node, sending an http request to the master 
      * and a 433 mhz request then
      * 
@@ -128,23 +110,7 @@ class NodesController extends Controller
     public function resetAction(Request $request)
     {
         $object = $this->get("ydle.nodes.manager")->getRepository()->find($request->get('node'));
-        
-        // Check if the required options are set in the parameters.yml file
-        $masterAddr = $this->container->getParameter('master_address');
-        $masterCode = $this->container->getParameter('master_id');        
-        if(empty($masterAddr) || empty($masterAddr)){
-            $this->get('session')->getFlashBag()->add('error', 'Node removed');
-            $this->redirect($this->generateUrl('nodes'));
-            die;
-        }
-        
-        $address = $masterAddr;
-        $address .= ':8888/node/reset?target='.$object->getCode().'&sender=';
-        $address .= $masterCode;
-        
-        $ch = curl_init($address);
-        curl_exec($ch);
-        curl_close($ch);
+              
         
         $this->get('ydle.logger')->log('info', 'Initialization signal sent to node #'.$object->getCode());
         $this->get('session')->getFlashBag()->add('notice', 'Reset envoyé');

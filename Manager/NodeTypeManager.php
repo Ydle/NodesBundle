@@ -71,6 +71,11 @@ class NodeTypeManager extends BaseEntityManager implements NodeTypeManagerInterf
         $this->save($object);
         return true;
     }
+    
+    public function find($id)
+    {
+        return $this->getRepository()->find($id);
+    }
 
     public function findAllByName()
     {
