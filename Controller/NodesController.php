@@ -54,6 +54,7 @@ class NodesController extends Controller
        
 	return $this->render('YdleNodesBundle:Nodes:form.html.twig', array(
             'action' => $action,
+            'entry' => $node,
             'form' => $form->createView()
         ));
     }
