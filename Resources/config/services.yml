@@ -1,0 +1,42 @@
+#  This file is part of Ydle.
+#
+#    Ydle is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU  Lesser General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Ydle is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU  Lesser General Public License for more details.
+#
+#    You should have received a copy of the GNU Lesser General Public License
+#    along with Ydle.  If not, see <http://www.gnu.org/licenses/>.
+
+parameters:
+  ydle.sensortype.manager.class: Ydle\NodesBundle\Manager\SensorTypeManager
+  ydle.node.manager.class: Ydle\NodesBundle\Manager\NodeManager
+
+services:
+  ydle.sensortypes.manager:
+    class: %ydle.sensortype.manager.class%
+    arguments: 
+      entityManager: "@doctrine.orm.entity_manager"
+  ydle.nodes.manager:
+    class: %ydle.node.manager.class%
+    arguments: 
+      entityManager: "@doctrine.orm.entity_manager"
+  ydle.sensortypes.form:
+    class: Ydle\NodesBundle\Form\Type\SensorTypesType
+    tags:
+        - { name: form.type, alias: sensor_types }
+  ydle.nodes.form:
+    class: Ydle\NodesBundle\Form\Type\NodeType
+    tags:
+        - { name: form.type, alias: node_form }
+          
+  validator.unique.ismaster:
+      class: Ydle\NodesBundle\Validator\Constraints\IsMasterValidator
+      arguments: ['@service_container']
+      tags:
+          - { name: validator.constraint_validator, alias: master_validator }

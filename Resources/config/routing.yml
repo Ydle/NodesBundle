@@ -1,0 +1,40 @@
+#  This file is part of Ydle.
+#
+#    Ydle is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU  Lesser General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Ydle is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU  Lesser General Public License for more details.
+#
+#    You should have received a copy of the GNU Lesser General Public License
+#    along with Ydle.  If not, see <http://www.gnu.org/licenses/>.
+    
+################
+#    Nodes     #
+################    
+nodes:
+    pattern:  /nodes
+    defaults: { _controller: YdleNodesBundle:Nodes:index }
+nodesForm:
+  pattern: /nodes/form/{node}
+  defaults: { _controller: YdleNodesBundle:Nodes:nodesForm, node:0 }
+submitNodeForm:
+  pattern: /nodes/form/{node}/submit
+  defaults: { _controller: YdleNodesBundle:Nodes:submitNodeForm, node:0 } 
+ 
+##################
+#  Type Sensors  #
+##################
+configTypeSensor:
+    pattern:  /conf/typesensor/{type}
+    defaults: { _controller: YdleHubBundle:Config:typesensor, type:0 }
+configTypeSensorActivation:
+    pattern:  /conf/typesensor/activation/{type}/{active}
+    defaults: { _controller: YdleHubBundle:Config:typesensoractivation, type:0, active:0 } 
+configTypeSensorDelete:
+    pattern:  /conf/typesensor/delete/{type}
+    defaults: { _controller: YdleHubBundle:Config:typesensordelete, type:0 } 
