@@ -1,7 +1,7 @@
 <?php
 /*
-	Dev : Titz
-	Date : 2014-12-21
+    Dev : Titz
+    Date : 2014-12-21
 */
 
 /*
@@ -30,146 +30,146 @@ use Ydle\RoomBundle\Entity\Room;
 class NodeTest extends \PHPUnit_Framework_TestCase
 {
 
-	public function testSetName()
-	{
-	    $node = new Node();
+    public function testSetName()
+    {
+        $node = new Node();
 
-	    $node->setName('Node Name Test');
-	    $this->assertEquals('Node Name Test', $node->getName());
-	}
+        $node->setName('Node Name Test');
+        $this->assertEquals('Node Name Test', $node->getName());
+    }
 
-	public function testSetCode()
-	{
-	    $node = new Node();
+    public function testSetCode()
+    {
+        $node = new Node();
 
-	    $node->setCode('NodeCode');
-	    $this->assertEquals('NodeCode', $node->getCode());
-	}
+        $node->setCode('NodeCode');
+        $this->assertEquals('NodeCode', $node->getCode());
+    }
 
-	public function testSetDescription()
-	{
-	    $node = new Node();
+    public function testSetDescription()
+    {
+        $node = new Node();
 
-	    $node->setDescription('Node Description Test');
-	    $this->assertEquals('Node Description Test', $node->getDescription());
-	}
+        $node->setDescription('Node Description Test');
+        $this->assertEquals('Node Description Test', $node->getDescription());
+    }
 
-	public function testSetIsActive()
-	{
-	    $node = new Node();
+    public function testSetIsActive()
+    {
+        $node = new Node();
 
-	    $node->setIsActive(FALSE);
-	    $this->assertEquals(FALSE, $node->getIsActive());
-	    $node->setIsActive(TRUE);
-	    $this->assertEquals(TRUE, $node->getIsActive());
-	}
+        $node->setIsActive(FALSE);
+        $this->assertEquals(FALSE, $node->getIsActive());
+        $node->setIsActive(TRUE);
+        $this->assertEquals(TRUE, $node->getIsActive());
+    }
  
-	// Voir comment on créer un RoomType
-	public function testSetType()
-	{
-	    $node = new Node();
+    // Voir comment on créer un RoomType
+    public function testSetType()
+    {
+        $node = new Node();
 
-	    $typeNode = new NodeType();
+        $typeNode = new NodeType();
         $typeNode->setName('Node Type Test');
         $typeNode->setIsActive(true);
-	    $node->setTypes($typeNode);
-	    $this->assertEquals($typeNode, $node->getTypes());
+        $node->setTypes($typeNode);
+        $this->assertEquals($typeNode, $node->getTypes());
 
-	    $typeNode2 = new NodeType();
+        $typeNode2 = new NodeType();
         $typeNode2->setName('Node Type Test 2');
         $typeNode2->setIsActive(true);
-	    $node->setTypes($typeNode);
-	}
-   
+        $node->setTypes($typeNode);
+    }
+
     // AddType fonctionne mal ?
-	public function testAddType()
-	{
-	    $node = new Node();
+    public function testAddType()
+    {
+        $node = new Node();
 
-	    $typeNode = new NodeType();
+        $typeNode = new NodeType();
         $typeNode->setName('Node Type Test');
         $typeNode->setIsActive(true);
-	    $node->setTypes($typeNode);
+        $node->setTypes($typeNode);
 
-	    $typeNode2 = new NodeType();
+        $typeNode2 = new NodeType();
         $typeNode2->setName('Node Type Test 2');
         $typeNode2->setIsActive(true);
-//	    $node->addType($typeNode2);
+//      $node->addType($typeNode2);
 
-	    // Le test est probablement faux
-//	    $this->assertEquals($typeNode, $node->getTypes());
-	}    
+        // Le test est probablement faux
+//      $this->assertEquals($typeNode, $node->getTypes());
+    }
 
-	// TODO gestion de la clef + 'Bug' addType
-	public function testRemoveType()
-	{
-	    $node = new Node();
+    // TODO gestion de la clef + 'Bug' addType
+    public function testRemoveType()
+    {
+        $node = new Node();
 
-	    $typeNode = new NodeType();
+        $typeNode = new NodeType();
         $typeNode->setName('Node Type Test');
         $typeNode->setIsActive(true);
-	    $node->setTypes($typeNode);
+        $node->setTypes($typeNode);
 
-	    $typeNode2 = new NodeType();
+        $typeNode2 = new NodeType();
         $typeNode2->setName('Node Type Test 2');
         $typeNode2->setIsActive(true);
-	    
-//	    $node->addType($typeNode2);
+
+//      $node->addType($typeNode2);
 
 /*
         $key = 0;
-	    $node->removeType($key);
-	    $this->assertEquals(1, count($node->getTypes()));
-	    $this->assertEquals($typdeNode2, $node->getTypes());
+        $node->removeType($key);
+        $this->assertEquals(1, count($node->getTypes()));
+        $this->assertEquals($typdeNode2, $node->getTypes());
 */
-	}
+    }
 
-	// TODO, il va falloir faire un persist + flush pour générer l'ID du nodeType
-	public function testHasType() {
+    // TODO, il va falloir faire un persist + flush pour générer l'ID du nodeType
+    public function testHasType()
+    {
+        $node = new Node();
 
-	    $node = new Node();
-
-	    $typeNode = new NodeType();
+        $typeNode = new NodeType();
         $typeNode->setName('Node Type Test');
         $typeNode->setIsActive(true);
-	    $node->setTypes($typeNode);
+        $node->setTypes($typeNode);
 
-	    $typeNode2 = new NodeType();
+        $typeNode2 = new NodeType();
         $typeNode2->setName('Node Type Test 2');
         $typeNode2->setIsActive(true);
 
 //var_dump($node->hasType($typeNode));
-//	    $this->assertEquals(TRUE, $node->hasType($typeNode));
-//	    $this->assertEquals(FALSE, $node->hasType($typeNode2));
+//      $this->assertEquals(TRUE, $node->hasType($typeNode));
+//      $this->assertEquals(FALSE, $node->hasType($typeNode2));
 
-	}
+    }
 
-	public function testSetRoom() {
+    public function testSetRoom() {
 
-	    $node = new Node();
-	    $room = new Room();
+        $node = new Node();
+        $room = new Room();
 
-	    $node->setRoom($room);
-	    $this->assertEquals($room,$node->getRoom());
-	}
+        $node->setRoom($room);
+        $this->assertEquals($room,$node->getRoom());
+    }
 
-	public function testSetCreatedAt()
-	{
-	    $room = new Room();
-	    $date = new \DateTime('2014-12-12');
+    public function testSetCreatedAt()
+    {
+        $room = new Room();
+        $date = new \DateTime('2014-12-12');
 
-	    $room->setCreatedAt($date);
-	    $this->assertEquals($date, $room->getCreatedAt());
-	}
+        $room->setCreatedAt($date);
+        $this->assertEquals($date, $room->getCreatedAt());
+    }
 
-   	public function testSetUpdatedAt()
-	{
-	    $room = new Room();
-	    $date = new \DateTime('2014-12-12');
+    public function testSetUpdatedAt()
+    {
+        $room = new Room();
+        $date = new \DateTime('2014-12-12');
 
-	    $room->setUpdatedAt($date);
-	    $this->assertEquals($date, $room->getUpdatedAt());
-	}
+        $room->setUpdatedAt($date);
+        $this->assertEquals($date, $room->getUpdatedAt());
+    }
     
     // TODO
     public function testHasTypes()

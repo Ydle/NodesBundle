@@ -1,7 +1,7 @@
 <?php
 /*
-	Dev : Titz
-	Date : 2014-12-21
+    Dev : Titz
+    Date : 2014-12-21
 */
 
 /*
@@ -30,13 +30,13 @@ use Ydle\NodesBundle\Entity\NodeType;
 class NodeTypeTest extends \PHPUnit_Framework_TestCase
 {
 
-	public function testSetName()
-	{
-	    $nodeType = new NodeType();
+    public function testSetName()
+    {
+        $nodeType = new NodeType();
 
-	    $nodeType->setName('NodeType Name Test');
-	    $this->assertEquals('NodeType Name Test', $nodeType->getName());
-	}
+        $nodeType->setName('NodeType Name Test');
+        $this->assertEquals('NodeType Name Test', $nodeType->getName());
+    }
 
     public function testSetDescription()
     {
@@ -93,8 +93,8 @@ class NodeTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     // TODO : Remplacer le contenu de la variable unit
-    public function testToArray(){
-
+    public function testToArray()
+    {
         $nodeType = new NodeType();
         $nodeType->setName('nodeType name');
         $nodeType->setDescription('nodeType description');
@@ -110,7 +110,6 @@ class NodeTypeTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($nodeTypeComparative,$nodeType->toArray());
-    }  
-
+    }
 
 }
